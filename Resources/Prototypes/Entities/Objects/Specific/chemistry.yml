@@ -319,6 +319,7 @@
   - type: Tag
     tags:
       - PillCanister
+      - SmartFridgeCanInsert
   - type: Storage
     capacity: 9
     quickInsert: true

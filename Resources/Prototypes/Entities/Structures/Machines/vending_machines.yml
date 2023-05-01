@@ -786,41 +786,6 @@
 
 - type: entity
   parent: VendingMachine
-  id: VendingMachineSmartFridge
-  name: SmartFridge
-  description: A refrigerated storage unit for keeping items cold and fresh.
-  components:
-  - type: VendingMachine
-    pack: SmartFridgeInventory
-    offState: off-real
-    brokenState: broken
-    normalState: off
-    denyState: deny-unshaded
-    screenState: normal-unshaded
-    loopDeny: false
-  - type: Advertise
-    pack: SmartFridgeAds
-  - type: Speech
-  - type: Sprite
-    sprite: Structures/Machines/VendingMachines/smartfridge.rsi
-    layers:
-    - state: off-real
-      map: ["enum.VendingMachineVisualLayers.Base"]
-    - state: off-real
-      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
-      shader: unshaded
-    - state: normal-unshaded
-      map: ["enum.VendingMachineVisualLayers.Screen"]
-      shader: unshaded
-    - state: panel
-      map: ["enum.WiresVisualLayers.MaintenancePanel"]
-  - type: PointLight
-    radius: 1.5
-    energy: 1.6
-    color: "#9dc5c9"
-
-- type: entity
-  parent: VendingMachine
   id: VendingMachineSnack
   name: Getmore Chocolate Corp
   description: A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars.
@@ -1828,3 +1793,82 @@
     - state: dispenser
     - state: dispensereng
 
+
+# SmartFridge Parent
+- type: entity
+  id: SmartFridgeBase
+  parent: BaseMachinePowered
+  name: SmartFridge
+  description: A refrigerated storage unit for keeping items cold and fresh.
+  abstract: true
+  components:
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -9
+    range: 3
+    enabled: false
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/empty.rsi
+    netsync: false
+    snapCardinals: true
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+    - shape:
+        !type:PhysShapeAabb
+        bounds: "-0.25,-0.45,0.25,0.45"
+      mask:
+      - MachineMask
+      layer:
+      - MachineLayer
+      density: 200
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Breakage"]
+      - !type:EjectVendorItems
+  - type: ActivatableUI
+    key: enum.SmartFridgeUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+    - key: enum.SmartFridgeUiKey.Key
+      type: SmartFridgeBoundUserInterface
+    - key: enum.WiresUiKey.Key
+      type: WiresBoundUserInterface
+  - type: Wires
+    BoardName: "SmartFridge"
+    LayoutId: Vending
+  - type: Anchorable
+  - type: TypingIndicator
+    proto: robot
+  - type: Speech
+    speechSounds: Vending
+  - type: DoAfter
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+  - type: PointLight
+    enabled: false
+    castShadows: false
+    radius: 1.5
+  - type: LitOnPowered
+  - type: ApcPowerReceiver
+    powerLoad: 200
+    priority: Low
+  - type: Actions
+  - type: SentienceTarget
+    flavorKind: station-event-random-sentience-flavor-mechanical
+  - type: StaticPrice
+    price: 200
+  - type: Appearance
+  - type: WiresVisuals

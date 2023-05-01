@@ -1,0 +1,58 @@
+- type: entity # It's in storage folder because it's more of a storage with a vending function than a vending with storage function.
+  parent: SmartFridgeBase
+  id: VendingMachineSmartFridge # Don't look at 'VendingMachine' in ID, it was named like that just to be stored with other machines and not inside its own .yml
+  name: SmartFridge
+  description: A refrigerated storage unit for keeping items cold and fresh. # See? Storage unit! Not a "vending unit".
+  components:
+  - type: SmartFridge
+    offState: off-real
+    brokenState: broken
+    normalState: off
+    denyState: deny-unshaded
+    screenState: normal-unshaded
+    loopDeny: false
+    whitelist:
+      tags:
+        - Pill
+        - Bottle
+        - Syringe
+      components:
+        - Drink
+        - Produce
+        - Food
+    containersWhitelist:
+      tags:
+        - SmartFridgeCanInsert
+  # - type: VendingMachine
+  #   pack: SmartFridgeInventory
+  #   offState: off-real
+  #   brokenState: broken
+  #   normalState: off
+  #   denyState: deny-unshaded
+  #   screenState: normal-unshaded
+  #   loopDeny: false
+  - type: Advertise
+    pack: SmartFridgeAds
+  - type: AccessReader
+    access: [["Hydroponics"], ["Medical"]]
+  - type: Speech
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/smartfridge.rsi
+    layers:
+    - state: off-real
+      map: ["enum.SmartFridgeVisualLayers.Base"]
+    - state: off-real
+      map: ["enum.SmartFridgeVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: normal-unshaded
+      map: ["enum.SmartFridgeVisualLayers.Screen"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#9dc5c9"
+  - type: ContainerContainer
+    containers:
+      microwave_entity_container: !type:Container

@@ -133,3 +133,6 @@
         - Produce
         - Seed
   - type: Dumpable
+  - type: Tag
+    tags:
+    - SmartFridgeCanInsert

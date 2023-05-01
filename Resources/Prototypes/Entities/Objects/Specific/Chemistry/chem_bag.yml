@@ -26,3 +26,6 @@
         - Bottle
         - Syringe
   - type: Dumpable
+  - type: Tag
+    tags:
+      - SmartFridgeCanInsert

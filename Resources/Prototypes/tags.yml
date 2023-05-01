@@ -578,6 +578,9 @@
   id: SkeletonMotorcycleKeys
 
 - type: Tag
+  id: SmartFridgeCanInsert # I don't like that tag name, but i also don't know what name suits more
+
+- type: Tag
   id: Smokable
 
 - type: Tag
