@@ -32,6 +32,13 @@ public sealed partial class ChameleonClothingComponent : Component
     /// </summary>
     [ViewVariables]
     public EntityUid? User;
+
+    /// <summary>
+    ///     Will component owner be affected by EMP pulses?
+    /// </summary>
+    [ViewVariables]
+    [DataField]
+    public bool EmpAffected = true;
 }
 
 [Serializable, NetSerializable]
