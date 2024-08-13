@@ -9,7 +9,7 @@ namespace Content.Shared.Clothing.Components;
 /// <summary>
 ///     Allow players to change clothing sprite to any other clothing prototype.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true), AutoGenerateComponentPause]
 [Access(typeof(SharedChameleonClothingSystem))]
 public sealed partial class ChameleonClothingComponent : Component
 {
@@ -36,7 +36,6 @@ public sealed partial class ChameleonClothingComponent : Component
     /// <summary>
     ///     Will component owner be affected by EMP pulses?
     /// </summary>
-    [ViewVariables]
     [DataField]
     public bool EmpAffected = true;
 
@@ -58,6 +57,7 @@ public sealed partial class ChameleonClothingComponent : Component
     [DataField]
     public bool EmpContinious = false;
 
+    [AutoPausedField]
     public TimeSpan NextEmpChange = TimeSpan.Zero; // When we need to change outfit next time
 }
 
